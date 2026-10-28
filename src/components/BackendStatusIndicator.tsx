@@ -9,14 +9,11 @@ export const BackendStatusIndicator: React.FC = () => {
   const checkStatus = async () => {
     setIsChecking(true);
     try {
-      await apiClient.get('/', { timeout: 2500 });
-      setIsOnline(true);
+      const response = await apiClient.get('/', { timeout: 2500 });
+      setIsOnline(response && response.status >= 200 && response.status < 300);
     } catch (err: any) {
-      if (err.response) {
-        setIsOnline(true);
-      } else {
-        setIsOnline(false);
-      }
+      const status = err?.response?.status;
+      setIsOnline(status !== undefined ? status >= 200 && status < 300 : false);
     } finally {
       setIsChecking(false);
     }

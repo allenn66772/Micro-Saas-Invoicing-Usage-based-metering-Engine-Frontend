@@ -14,7 +14,7 @@ import type {
   VerifyOtpResponse,
 } from '../types';
 
-const API_BASE_URL = "https://micro-saas-invoicing-usage-based.onrender.com";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || (import.meta.env.DEV ? '/api' : 'https://micro-saas-invoicing-usage-based.onrender.com');
 
 export const apiClient = axios.create({
   baseURL: API_BASE_URL,
@@ -24,12 +24,12 @@ export const apiClient = axios.create({
   timeout: 45000,
 });
 
-// Request Interceptor: Automatically inject JWT Bearer token
+// Request Interceptor: Automatically inject JWT
 apiClient.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     const token = localStorage.getItem('token');
     if (token && config.headers) {
-      config.headers.Authorization = `Bearer ${token}`;
+      config.headers.Authorization = 'Bearer ' + token;
     }
     return config;
   },
