@@ -40,8 +40,8 @@ export const BackendStatusIndicator: React.FC = () => {
         }`}
         title={
           isOnline === true
-            ? 'Express/Node.js backend reachable on http://localhost:3000'
-            : 'Backend not detected at http://localhost:3000. Ensure node server is running.'
+            ? 'Express/Node.js backend reachable on https://micro-saas-invoicing-usage-based.onrender.com'
+            : 'Backend not detected at https://micro-saas-invoicing-usage-based.onrender.com. Ensure node server is running.'
         }
       >
         <span
